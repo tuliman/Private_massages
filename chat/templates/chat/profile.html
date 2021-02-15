@@ -1,0 +1,40 @@
+{% extends 'chat/base.html' %}
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% for i in obj %}
+            <h1>{{ i.username }}</h1>
+            <h3>{{ i.email }}</h3>
+            <h4>{{ i.first_name }}</h4>
+            <h4>{{ i.last_name }}</h4>
+            {% if search_users %}
+                {% for val in search_users %}
+                    <a href="{% url 'any_user_id' id=val.id %}">{{ val.username }}</a>
+
+                {% endfor %}
+
+            {% endif %}
+        {% endfor %}
+        <form method="get">
+            <label>
+                <input  name="q" type="text" label="search">
+            </label>
+            <button type="submit">search</button>
+        </form>
+
+
+
+        <a href="{% url 'logout' %}"> Log-out </a>
+
+    {% else %}
+        <a href="{% url 'auth' %}"> Авторизоваться </a>
+        <a href="{% url 'registration' %}"> Зарегистрироваться </a>
+
+
+
+
+    {% endif %}
+
+
+{% endblock %}

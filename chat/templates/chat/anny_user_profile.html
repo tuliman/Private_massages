@@ -1,0 +1,12 @@
+{% extends 'chat/base.html' %}
+{% load bootstrap4 %}
+
+{% block title %} {{ opponent.username }} {% endblock %}
+
+{% block content %}
+    <h1 > {{ opponent.username }}</h1>
+    <form method="post">
+    {% csrf_token %}
+    </form>
+    <a href="{% url 'create_chat' opponent_id=opponent.id  %}"> Create chat </a>
+{% endblock %}

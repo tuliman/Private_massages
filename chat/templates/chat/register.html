@@ -1,0 +1,17 @@
+{% extends 'chat/base.html' %}
+{% load bootstrap4 %}
+{% block title %} Registration {% endblock %}
+
+{% block content %}
+
+
+    {% bootstrap_form form layout 'horizontal' %}
+    {% csrf_token %}
+        {% if form.errors %}
+            {% for error in form.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif  %}
+    <button class="button" type="submit">Отправить </button>
+
+{% endblock %}

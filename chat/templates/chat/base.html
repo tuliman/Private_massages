@@ -1,0 +1,18 @@
+{% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>{% block title %} Title {% endblock %}</title>
+    {% bootstrap_javascript jquery='slim' %}
+    {% bootstrap_css %}
+
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

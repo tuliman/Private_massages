@@ -1,0 +1,18 @@
+{% extends 'chat/base.html' %}
+{% block title %} {{ chat.user_1.username }} {{ chat.opponent.username }}  {% endblock %}
+
+{% block content %}
+     <form method="post">
+     {% csrf_token %}
+     {{ form.as_p }}
+     <button type="submit"> Submit </button>
+     </form>
+    {% if message.count == 0 %}
+        <h1> Список сообщений пуст </h1>
+        {% else %}
+        {% for mes in message %}
+            <h1>{{ mes }}</h1>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
