@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.urls import reverse
 
-from .models import Chats, Messages, Baned_User
+from .models import Chats, Messages,Comment,Profile,News
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.views import View
