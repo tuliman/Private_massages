@@ -5,6 +5,7 @@ from .models import Chats, Messages, Baned_User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.views import View
+from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationUserForm, AuthUserForm, MessagesForm
@@ -28,10 +29,13 @@ def auth(request):
         return render(request, 'chat/login.html', {'form': form})
 
 
+class LogoutProfile(LogoutView):
+    template_name = 'chat/logout.html'
+
+
 def registration(request):
     if request.method == 'POST':
         form = RegistrationUserForm(request.POST)
-
         if form.is_valid():
 
             new_user = form.save(commit=False)
@@ -41,7 +45,6 @@ def registration(request):
 
             return redirect('auth')
         else:
-
             return render(request, 'chat/register.html', {'form': form})
     else:
         form = RegistrationUserForm()

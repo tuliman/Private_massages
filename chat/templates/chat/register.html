@@ -4,8 +4,9 @@
 
 {% block content %}
 
-
-    {% bootstrap_form form layout 'horizontal' %}
+    <form class="container" method="post">
+        <section class="col border py-2">
+    {% bootstrap_form form layout='horizontal' %}
     {% csrf_token %}
         {% if form.errors %}
             {% for error in form.errors %}
@@ -13,5 +14,6 @@
             {% endfor %}
         {% endif  %}
     <button class="button" type="submit">Отправить </button>
-
+        </section>
+    </form>
 {% endblock %}
