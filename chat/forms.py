@@ -1,5 +1,5 @@
 from django import forms
-from .models import Messages, Chats, News
+from .models import Messages, Chats, News,Comment
 from django.contrib.auth.models import User
 
 
@@ -45,3 +45,9 @@ class NewsForm(forms.ModelForm):
         model = News
         fields = '__all__'
         exclude = ('approv',)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+        exclude = ('approved','author',)

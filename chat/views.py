@@ -8,7 +8,7 @@ from django.views import View
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import RegistrationUserForm, AuthUserForm, MessagesForm, NewsForm
+from .forms import RegistrationUserForm, AuthUserForm, MessagesForm, NewsForm, CommentForm
 
 
 # Create your views here.
@@ -118,19 +118,32 @@ class ChatMessages(View):
             return redirect(reverse('dialog', kwargs={'chat_id': chat_id.id}))
 
 
-def view_news(request):
-    news = News.objects.all()
-    return render(request, 'chat/news.html', {'news': news})
+class ViewNews(View):
+    def post(self, request, news_id):
+        news_id = get_object_or_404(News, news=news_id)
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(commit=False)
+            form.author = request.user
+            form.news = news_id
+            form.save()
+            return redirect('news')
+
+    def get(self, request):
+        form = CommentForm()
+        news = News.objects.all()
+        return render(request, 'chat/news.html', {'news': news, 'form': form})
 
 
 class AddNews(View):
     def get(self, request):
         form = NewsForm()
-        return render(request,'chat/add_news.html',{'data':form})
-    def post(self,request):
-        form = NewsForm(request.POST,request.FILE)
+        return render(request, 'chat/add_news.html', {'data': form})
+
+    def post(self, request):
+        form = NewsForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(view_news)
         else:
-            return render(request,'chat/add_news.html',{'data':form})
+            return render(request, 'chat/add_news.html', {'data': form})
