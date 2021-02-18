@@ -1,0 +1,14 @@
+{% extends 'chat/base.html' %}
+{% load bootstrap4 %}
+
+{% block title  %} Add News {% endblock %}
+
+{% block content %}
+
+    <form method="post" class="container border p-4 " enctype="multipart/form-data">
+    {% bootstrap_form data layout='horizontal' %}
+        {% bootstrap_form_errors data %}
+    <a type="button " class="btn btn-secondary col-lg-2 col-md-3 col-sm-3 col-xs-6 top-cover center-block"> Submit</a>
+    </form>
+
+{% endblock %}

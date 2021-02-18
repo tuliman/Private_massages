@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.urls import reverse
 
-from .models import Chats, Messages,Comment,Profile,News
+from .models import Chats, Messages, Comment, Profile, News
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import RegistrationUserForm, AuthUserForm, MessagesForm
+from .forms import RegistrationUserForm, AuthUserForm, MessagesForm, NewsForm
 
 
 # Create your views here.
@@ -41,7 +41,6 @@ def registration(request):
             new_user = form.save(commit=False)
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
-            Baned_User.objects.create(user=new_user)
 
             return redirect('auth')
         else:
@@ -117,3 +116,21 @@ class ChatMessages(View):
             message.save()
 
             return redirect(reverse('dialog', kwargs={'chat_id': chat_id.id}))
+
+
+def view_news(request):
+    news = News.objects.all()
+    return render(request, 'chat/news.html', {'news': news})
+
+
+class AddNews(View):
+    def get(self, request):
+        form = NewsForm()
+        return render(request,'chat/add_news.html',{'data':form})
+    def post(self,request):
+        form = NewsForm(request.POST,request.FILE)
+        if form.is_valid():
+            form.save()
+            return redirect(view_news)
+        else:
+            return render(request,'chat/add_news.html',{'data':form})

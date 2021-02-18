@@ -1,10 +1,12 @@
 {% extends 'chat/base.html' %}
+{% load bootstrap4 %}
 {% block title %} Profile {% endblock %}
 
 {% block content %}
+    <div class="container">
     {% if user.is_authenticated %}
         {% for i in obj %}
-            <h1>{{ i.username }}</h1>
+            <h1 class=""> User name: {{ i.username }}</h1>
             <h3>{{ i.email }}</h3>
             <h4>{{ i.first_name }}</h4>
             <h4>{{ i.last_name }}</h4>
@@ -16,25 +18,29 @@
 
             {% endif %}
         {% endfor %}
-        <form method="get">
+
+        <form method="get" class="d-flex container" >
             <label>
-                <input  name="q" type="text" label="search">
+                <input class="form-control me-2" name="q" type="text" label="search">
             </label>
-            <button type="submit">search</button>
+            <button class="btn btn-outline-success " type="submit">search</button>
         </form>
 
 
 
-        <a href="{% url 'logout' %}"> Log-out </a>
+        <a type="button" class="btn btn-primary" href="{% url 'logout' %}"> Log-out </a>
 
     {% else %}
-        <a href="{% url 'auth' %}"> Авторизоваться </a>
-        <a href="{% url 'registration' %}"> Зарегистрироваться </a>
+        <div class="container buttons overflow-hidden p-4 col border py 4  ">
+
+        <a class="btn btn-primary " href="{% url 'auth' %}"> Авторизоваться </a>
+        <a class="btn btn-primary" href="{% url 'registration' %}"> Зарегистрироваться </a>
+        </div>
 
 
 
 
     {% endif %}
-
+    </div>
 
 {% endblock %}

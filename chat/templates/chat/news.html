@@ -1,0 +1,16 @@
+{% extends 'chat/base.html' %}
+{% load bootstrap4 %}
+
+{% block title %} News {% endblock %}
+
+
+{% block content %}
+<div class="container">
+{% for obj in news %}
+
+{% endfor %}
+    <h5 class="border">
+     <a href="{% url 'create' %}">Предложить новость</a>
+    </h5>
+</div>
+{% endblock %}
