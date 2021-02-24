@@ -6,21 +6,35 @@
     <div class="container">
     {% if user.is_authenticated %}
         {% for i in obj %}
-            <h1 class=""> User name: {{ i.username }}</h1>
-            <h3>{{ i.email }}</h3>
-            <h4>{{ i.first_name }}</h4>
-            <h4>{{ i.last_name }}</h4>
+            <div class="container">
+            <div class="row justify-content-md-center ">
+            <div class="col-md-auto align-top">
+            <h3  > User name: {{ i.username }}</h3>
+            </div>
+            <div class="col-md-auto align-top">
+            <h3>Email-{{ i.email }}</h3>
+            </div>
+            <div class="col-md-auto">
+            <h3>Имя-{{ i.first_name }}</h3>
+            </div>
+            <div class="col-md-auto">
+            <h3>Фамилия - {{ i.last_name }}</h3>
+            </div>
+
             {% if search_users %}
                 {% for val in search_users %}
-                    <a href="{% url 'any_user_id' id=val.id %}">{{ val.username }}</a>
-
+                    <div class="col-md-auto">
+                    <a class="row" href="{% url 'any_user_id' id=val.id %}">{{ val.username }}</a>
+                    </div>
                 {% endfor %}
 
             {% endif %}
+            </div>
+            </div>
         {% endfor %}
 
         <form method="get" class="d-flex container" >
-            <label>
+            <label >
                 <input class="form-control me-2" name="q" type="text" label="search">
             </label>
             <button class="btn btn-outline-success " type="submit">search</button>
@@ -39,8 +53,8 @@
 
 
 
-
     {% endif %}
     </div>
+
 
 {% endblock %}

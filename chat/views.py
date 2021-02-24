@@ -71,9 +71,9 @@ def profile(request, ):
     return render(request, 'chat/profile.html', context, )
 
 
-def anny_user_profile(request, id):
+def anny_user_profile(request, user_id):
     user = request.user
-    opponent_profile = get_object_or_404(User, id=id)
+    opponent_profile = get_object_or_404(User, id=user_id)
     return render(request, 'chat/anny_user_profile.html', {'opponent': opponent_profile, 'user': user})
 
 
@@ -118,6 +118,12 @@ class ChatMessages(View):
             return redirect(reverse('dialog', kwargs={'chat_id': chat_id.id}))
 
 
+def chat_list(request):
+    user = request.user
+
+    return render(request, 'chat/chat_list.html', {'chats': chats})
+
+
 class ViewNews(View):
     def post(self, request, news_id):
         news_id = get_object_or_404(News, news=news_id)
@@ -144,6 +150,6 @@ class AddNews(View):
         form = NewsForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(view_news)
+            return redirect('create')
         else:
             return render(request, 'chat/add_news.html', {'data': form})
